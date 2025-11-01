@@ -25,7 +25,6 @@ body {
 .page-title {
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
     margin-bottom: 20px;
     color: #333;
     padding-bottom: 15px;
@@ -36,6 +35,19 @@ body {
 .section {
     margin-bottom: 30px;
 }
+
+/* セクションタイトル - 削除済み */
+
+/* フォームセクション */
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+/* フォームセクションタイトル - 削除済み */
 
 /* パンくずリスト */
 .breadcrumb {
@@ -57,6 +69,13 @@ body {
     font-size: 16px;
     line-height: 1.8;
     margin-bottom: 15px;
+}
+
+/* フォーム説明 */
+.form-description {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 /* ボタンスタイル */
@@ -83,43 +102,354 @@ body {
     font-size: 18px;
 }
 
+/* セカンダリーボタン */
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* 無効化されたボタン */
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn:disabled:hover {
+    background-color: #cccccc;
+}
+
 /* ボタンコンテナ */
 .btn-container {
     text-align: center;
     margin-top: 30px;
 }
 
-/* フォーム要素 */
-.form-group {
-    margin-bottom: 25px;
+/* フォーム行（横並び用） */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px;
 }
 
+.form-row:last-child {
+    border-bottom: none;
+}
+
+/* 3分割レイアウト */
+.form-row.three-column {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-label-column {
+    width: 25%;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: bold;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.form-input-column {
+    width: 75%;
+    flex-grow: 1;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* ラベル */
 .form-label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* 必須・任意アイコン共通スタイル */
+.form-label {
+    position: relative;
+    padding-left: 45px;
+    /* アイコン + 余白の幅 */
+    display: flex;
+    align-items: center;
+    /* 上下中央揃え */
+}
+
+/* アイコンなしのラベル */
+.form-label.no-icon {
+    padding-left: 0;
+    /* 左側の余白をなくす */
+}
+
+/* アイコンなしのラベルの疑似要素（:before）を非表示 */
+.form-label.no-icon:before {
+    display: none;
+}
+
+.form-label:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 20px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    /* 上下中央揃え */
+    justify-content: center;
+    /* 左右中央揃え */
+}
+
+/* 必須項目のラベル */
+.form-label.required:before {
+    content: "必須";
+    background-color: #8E2921;
+    /* 赤色背景 */
+}
+
+/* 任意項目のラベル */
+.form-label:not(.required):before {
+    content: "任意";
+    background-color: #666666;
+    /* 濃い灰色背景 */
+}
+
+/* 入力フィールド */
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus {
+    border-color: #8E2921;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(142, 41, 33, 0.2);
+    background-color: #fff;
+}
+
+/* ヒントテキスト */
+.form-hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* エラーメッセージ */
+.error-message {
+    display: block;
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
     font-weight: bold;
 }
 
-.form-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* チェックボックスグループ */
+.checkbox-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.checkbox-label,
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
     font-size: 16px;
 }
 
-.error-message {
-    color: #e74c3c;
+.checkbox-label input[type="checkbox"],
+.radio-label input[type="radio"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #8E2921;
+}
+
+/* ラジオボタングループ */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* 名前入力欄のコンテナ */
+.name-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+/* 名前入力欄のフィールド */
+.name-field {
+    flex: 1;
+    position: relative;
+}
+
+/* 生年月日入力欄のコンテナ */
+.date-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+/* 生年月日入力欄のフィールド */
+.date-field {
+    flex: 1;
+    position: relative;
+}
+
+/* 生年月日ラベル */
+.date-label {
     font-size: 14px;
-    margin-top: 5px;
-    display: block;
+    font-weight: bold;
+    color: #555;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* 生年月日入力欄 */
+.date-input {
+    width: 100%;
+}
+
+/* 生年月日年入力欄、セレクト */
+/* .birth-year-input,
+.birth-month-select {
+    width: 120px;
+} */
+
+/* 生年月日入力欄ラッパー */
+.date-inputs-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+/* 名前ラベル */
+.name-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+    min-width: 30px;
+    text-align: left;
+}
+
+/* ラベルとインプットを横並びにする */
+.input-with-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* 名前行のスタイル */
+.name-row .form-label-column {
+    align-items: flex-start;
+    padding-top: 5px;
+}
+
+.name-field input::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* 成功メッセージ */
+.success-message {
+    background-color: #EEDFDE;
+    border: 1px solid #8E2921;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #8E2921;
+}
+
+.success-message p {
+    margin-bottom: 15px;
+}
+
+/* お知らせボックス */
+.notice-box {
+    background-color: #f8f9fa;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.notice-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #8E2921;
+}
+
+.notice-box p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.notice-box p:last-child {
+    margin-bottom: 0;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+
+    /* レスポンシブ時のラベルアイコン調整 - 右側に配置 */
+    .form-label {
+        padding-left: 0;
+        padding-right: 40px;
+        /* アイコン + 余白の幅を右側に */
+    }
+
+    /* アイコンなしのラベルはパディングなし */
+    .form-label.no-icon {
+        padding-right: 0;
+    }
+
+    .form-label:before {
+        left: auto;
+        right: 0;
+        width: 30px;
+        font-size: 11px;
+    }
+
+    /* レスポンシブ時も生年月日入力欄は横並びを維持 */
+    .date-inputs-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+
     .content-box {
-        padding: 20px;
-        margin: 0 15px;
+        padding: 20px 15px;
     }
 
     .page-title {
@@ -129,5 +459,113 @@ body {
     .btn-large {
         padding: 12px 30px;
         font-size: 16px;
+    }
+
+    .form-group.half {
+        width: 100%;
+        padding: 0;
+    }
+
+    .form-row {
+        margin: 0 0 20px 0;
+        padding-bottom: 20px;
+    }
+
+    .form-row.three-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .form-label-column {
+        width: 30%;
+        padding-right: 10px;
+        justify-content: flex-start;
+        margin-bottom: 0;
+        font-size: 16px;
+    }
+
+    .form-input-column {
+        width: 70%;
+    }
+
+    /* 画面がさらに小さい場合 */
+    @media (max-width: 576px) {
+
+        /* スマートフォン時のラベルアイコン調整 - 右側に配置 */
+        .form-label {
+            padding-left: 0;
+            padding-right: 35px;
+            /* アイコン + 余白の幅を右側に */
+        }
+
+        /* アイコンなしのラベルはパディングなし */
+        .form-label.no-icon {
+            padding-right: 0;
+        }
+
+        .form-label:before {
+            left: auto;
+            right: 0;
+            width: 28px;
+            height: 18px;
+            font-size: 10px;
+        }
+
+        /* スマートフォン時も生年月日入力欄は横並びを維持 */
+        .date-inputs-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+        .form-row.three-column {
+            flex-direction: column;
+        }
+
+        .form-label-column {
+            width: 100%;
+            padding-right: 0;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .form-input-column {
+            width: 100%;
+        }
+    }
+
+    /* 名前フィールドは縦並びにする */
+    .name-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .name-field {
+        width: 100%;
+    }
+
+    /* 生年月日フィールドも横並びのままにする */
+    .date-container {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .date-field {
+        width: auto;
+    }
+
+    /* ラベルとインプットも横並びのままにする */
+    .input-with-label {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%;
     }
 }

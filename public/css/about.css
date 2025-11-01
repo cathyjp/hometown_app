@@ -6,16 +6,6 @@
     padding: 40px 0;
 }
 
-/* セクションタイトル */
-.section-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #8E2921;
-    padding-left: 10px;
-    border-left: 5px solid #8E2921;
-}
-
 /* リスト共通スタイル */
 .benefit-list,
 .eligibility-list {
@@ -38,11 +28,4 @@
     font-size: 14px;
     color: #666;
     margin-top: 5px;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 20px;
-    }
 }

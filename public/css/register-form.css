@@ -1,0 +1,38 @@
+/* 登録フォーム固有のスタイル */
+
+.privacy-policy {
+    background-color: #EEDFDE;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* プライバシーポリシーコンテンツ */
+.privacy-policy-content {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.privacy-policy-content p {
+    margin-bottom: 10px;
+}
+
+.privacy-policy-content ol {
+    padding-left: 20px;
+}
+
+.privacy-policy-content li {
+    margin-bottom: 5px;
+}
+
+/* チェックボックスを中央揃え */
+.checkbox-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.checkbox-center .checkbox-group {
+    text-align: center;
+}

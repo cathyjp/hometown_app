@@ -1,0 +1,54 @@
+/* 確認画面固有のスタイル */
+
+/* 確認画面の説明文 */
+.confirm-description {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* 確認セクション */
+.confirm-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.confirm-section:last-child {
+    border-bottom: none;
+}
+
+/* 確認行 */
+.confirm-row {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.confirm-row:last-child {
+    margin-bottom: 0;
+}
+
+/* 確認ラベル */
+.confirm-label {
+    width: 150px;
+    font-weight: 500;
+    color: #666;
+}
+
+/* 確認値 */
+.confirm-value {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .confirm-row {
+        flex-direction: column;
+    }
+
+    .confirm-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}

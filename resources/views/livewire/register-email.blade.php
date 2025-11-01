@@ -80,7 +80,7 @@ $submit = function () {
             @else
                 <form wire:submit="submit" class="email-form">
                     <div class="form-group">
-                        <label for="email" class="form-label">メールアドレス</label>
+                        <label for="email" class="form-label no-icon">メールアドレス</label>
                         <input type="email" id="email" wire:model="email" class="form-input"
                             placeholder="例：example@example.com">
                         @error('email')
