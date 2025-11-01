@@ -1,0 +1,101 @@
+/* ヘッダースタイル */
+.site-header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-start;
+    /* 左寄せに変更 */
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.logo-image {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* フッタースタイル */
+.site-footer {
+    background-color: #f5f5f5;
+    padding: 40px 0 0;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-info {
+    flex: 1;
+    min-width: 300px;
+    margin-bottom: 30px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.footer-address {
+    font-style: normal;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #666;
+}
+
+/* フッターリンクとSNSアイコンは削除されました */
+
+.footer-copyright {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #666;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+
+    /* ヘッダーのレスポンシブ対応 */
+    .header-container {
+        justify-content: center;
+        /* レスポンシブ時は中央寄せ */
+    }
+
+    /* フッターのレスポンシブ対応 */
+    .footer-container {
+        flex-direction: column;
+    }
+}
