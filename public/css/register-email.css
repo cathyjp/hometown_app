@@ -1,0 +1,7 @@
+/* メールアドレス入力フォームの固有スタイル */
+
+/* フォーム説明 */
+.form-description {
+    margin-bottom: 30px;
+    text-align: center;
+}
