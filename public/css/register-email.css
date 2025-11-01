@@ -5,3 +5,18 @@
     margin-bottom: 30px;
     text-align: center;
 }
+
+/* 成功メッセージ */
+.success-message {
+    background-color: #EEDFDE;
+    border: 1px solid #8E2921;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #8E2921;
+}
+
+.success-message p {
+    margin-bottom: 15px;
+}
