@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Session;
 
 title('ふるさと住民登録申請フォーム｜平泉町');
 
@@ -19,6 +20,29 @@ state([
 ]);
 
 $submit = function () {
+    // デバッグ・テスト用: メールアドレスが"test"の場合は成功画面を表示してから10秒後にregister-formに遷移
+    if ($this->email === 'test') {
+        // テストデータをセッションに保存
+        Session::put('hometown_register', [
+            'last_name' => '山田',
+            'first_name' => '太郎',
+            'last_name_kana' => 'やまだ',
+            'first_name_kana' => 'たろう',
+            'postal_code' => '1234567',
+            'prefecture' => '北海道',
+            'city' => '札幌市白石区1-1',
+            'address' => '平泉マンション101号室',
+            'phone' => '09012345678',
+            'gender' => '男性',
+            'birth_year' => '1992',
+            'birth_month' => '1',
+        ]);
+
+        // 成功画面を表示（10秒後にJavaScriptでリダイレクト）
+        $this->success = true;
+        return;
+    }
+
     $this->validate(
         [
             'email' => 'required|email|unique:users',
@@ -70,7 +94,7 @@ $submit = function () {
             </div>
 
             @if ($success)
-                <div class="success-message">
+                <div class="success-message" data-email="{{ $email }}">
                     <p>メールアドレスの確認メールを送信しました。</p>
                     <p>メールに記載されたリンクをクリックして、メールアドレスの確認を完了してください。</p>
                     <div class="btn-container">
@@ -78,7 +102,7 @@ $submit = function () {
                     </div>
                 </div>
             @else
-                <form wire:submit="submit" class="email-form">
+                <form wire:submit="submit" class="email-form" id="email-form" novalidate>
                     <div class="form-group">
                         <label for="email" class="form-label no-icon">メールアドレス</label>
                         <input type="email" id="email" wire:model="email" class="form-input"
@@ -93,6 +117,66 @@ $submit = function () {
                     </div>
                 </form>
             @endif
+
+            <script>
+                // デバッグ・テスト用: "test"の場合はブラウザ側のバリデーションを無効化
+                document.addEventListener('DOMContentLoaded', function() {
+                    const emailInput = document.getElementById('email');
+                    const emailForm = document.getElementById('email-form');
+
+                    if (emailInput && emailForm) {
+                        emailInput.addEventListener('input', function() {
+                            if (this.value === 'test') {
+                                this.type = 'text';
+                                emailForm.setAttribute('novalidate', 'novalidate');
+                            } else {
+                                this.type = 'email';
+                            }
+                        });
+
+                        emailForm.addEventListener('submit', function(e) {
+                            const emailValue = emailInput.value;
+                            if (emailValue === 'test') {
+                                // "test"の場合はブラウザ側のバリデーションをスキップ
+                                e.preventDefault();
+                                @this.call('submit');
+                            }
+                        });
+                    }
+                });
+
+                // デバッグ・テスト用: success=trueかつemail=testの場合、10秒後にregister-formにリダイレクト
+                function checkTestRedirect() {
+                    const successMessage = document.querySelector('.success-message');
+                    if (successMessage) {
+                        const emailValue = successMessage.getAttribute('data-email');
+                        if (emailValue === 'test') {
+                            // 既にタイマーが設定されている場合はスキップ
+                            if (successMessage.dataset.timerSet === 'true') {
+                                return;
+                            }
+                            successMessage.dataset.timerSet = 'true';
+
+                            // 10秒後にregister-formにリダイレクト
+                            setTimeout(function() {
+                                window.location.href = '{{ route('hometown.register.form') }}';
+                            }, 10000);
+                        }
+                    }
+                }
+
+                // Livewireの更新を監視
+                document.addEventListener('livewire:init', function() {
+                    Livewire.hook('morph.updated', function() {
+                        checkTestRedirect();
+                    });
+                });
+
+                // DOMContentLoadedでも確認
+                document.addEventListener('DOMContentLoaded', function() {
+                    checkTestRedirect();
+                });
+            </script>
         </div>
     </div>
 </div>

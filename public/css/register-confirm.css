@@ -1,12 +1,9 @@
 /* 確認画面固有のスタイル */
 
-/* 確認画面の説明文 */
 .confirm-description {
     margin-bottom: 30px;
-    text-align: center;
 }
 
-/* 確認セクション */
 .confirm-section {
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -17,7 +14,6 @@
     border-bottom: none;
 }
 
-/* 確認行 */
 .confirm-row {
     display: flex;
     margin-bottom: 15px;
@@ -28,17 +24,21 @@
     margin-bottom: 0;
 }
 
-/* 確認ラベル */
 .confirm-label {
     width: 150px;
     font-weight: 500;
     color: #666;
 }
 
-/* 確認値 */
 .confirm-value {
     flex: 1;
     font-weight: 500;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* レスポンシブ対応 */
@@ -50,5 +50,10 @@
     .confirm-label {
         width: 100%;
         margin-bottom: 5px;
+    }
+
+    .btn-container {
+        flex-direction: column;
+        gap: 20px;
     }
 }

@@ -7,7 +7,8 @@
             </div>
             <address class="footer-address">
                 〒029-4192 岩手県西磐井郡平泉町平泉字志羅山45-2<br>
-                TEL：0191-46-2111／FAX：0191-46-3080<br>
+                TEL：0191-46-2111 ／ FAX：0191-46-3080<br>
+                EMAIL：kikaku@town.hiraizumi.iwate.jp<br>
                 開庁時間：8時30分から17時15分（土日祝日・年末年始は除く）
             </address>
         </div>

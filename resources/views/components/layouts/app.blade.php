@@ -58,7 +58,39 @@
     <x-footer />
 
     <!-- Scripts -->
-    <!-- ナビゲーションメニューが削除されたため、メニュートグルのスクリプトも削除 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // スライドショー機能
+            const slideshowSlides = document.querySelectorAll('.slideshow-slide');
+            if (slideshowSlides.length > 0) {
+                let slideIndex = 0;
+
+                function showSlides() {
+                    // すべてのスライドを非表示にする
+                    for (let i = 0; i < slideshowSlides.length; i++) {
+                        slideshowSlides[i].style.display = "none";
+                        slideshowSlides[i].style.opacity = "0";
+                    }
+
+                    // 次のスライドを表示
+                    slideIndex++;
+                    if (slideIndex > slideshowSlides.length) {
+                        slideIndex = 1;
+                    }
+
+                    slideshowSlides[slideIndex - 1].style.display = "block";
+                    setTimeout(() => {
+                        slideshowSlides[slideIndex - 1].style.opacity = "1";
+                    }, 100);
+
+                    // 3秒ごとに画像を切り替え
+                    setTimeout(showSlides, 3000);
+                }
+
+                showSlides();
+            }
+        });
+    </script>
 </body>
 
 </html>

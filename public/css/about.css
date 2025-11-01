@@ -1,12 +1,119 @@
 /* ふるさと住民制度概要ページの固有スタイル */
 
-/* 全体のコンテナ */
-.about-container {
-    background-color: #f8f9fa;
-    padding: 40px 0;
+/* 親要素を相対配置にして、about-containerの絶対配置の基準点にする */
+div:has(.about-container) {
+    position: relative;
 }
 
-/* リスト共通スタイル */
+/* about-containerとフッターの間のスペーサー */
+.about-spacer {
+    width: 100%;
+    /* 高さはJavaScriptで動的に設定 */
+}
+
+/* メインビジュアル */
+.main-visual {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9のアスペクト比（9÷16×100） */
+    overflow: hidden;
+    z-index: 1;
+}
+
+.slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 下部透過グラデーション */
+.slideshow-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    background: linear-gradient(to bottom, rgba(248, 249, 250, 0) 0%, rgba(248, 249, 250, 1) 100%);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.slideshow-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.main-visual-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* フェードエフェクト */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+
+/* メインビジュアルの上に重ねて表示 */
+.about-container {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+    background-color: transparent;
+    z-index: 10;
+}
+
+/* セクションを横並びにするコンテナ */
+.sections-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.sections-row .content-box {
+    flex: 1;
+}
+
+.about-container .content-box>h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #8E2921;
+}
+
+.about-container .content-box>p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
 .benefit-list,
 .eligibility-list {
     list-style-type: disc;
@@ -14,7 +121,11 @@
     margin-bottom: 15px;
 }
 
-/* リストアイテム */
+.eligibility-list {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
 .benefit-list li,
 .eligibility-list li {
     font-size: 16px;
@@ -23,9 +134,106 @@
     position: relative;
 }
 
+/* benefit-listの中点の色を#8E2921に変更 */
+.benefit-list li::marker {
+    color: #8E2921;
+}
+
+.eligibility-list li label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.eligibility-list li label input[type="radio"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #8E2921;
+}
+
 /* 注釈 */
 .note {
     font-size: 14px;
     color: #666;
     margin-top: 5px;
+    text-align: right;
+}
+
+.btn-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.btn-message {
+    display: block;
+    color: #8E2921;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .about-container {
+        position: relative;
+        /* 絶対配置を解除して通常フローに */
+        top: auto;
+        left: auto;
+        transform: none;
+        /* メインビジュアルの下に配置 */
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        /* 左右マージンを確保 */
+        width: calc(100% - 20px);
+        /* 左右マージン分を引いた幅 */
+        max-width: calc(100% - 20px);
+        /* max-widthも調整 */
+        box-sizing: border-box;
+        /* パディングを含めた幅計算 */
+        padding: 20px;
+        /* 左右マージンを確保するためにpaddingを維持 */
+    }
+
+    .about-container .content-box {
+        margin-left: 0;
+        margin-right: 0;
+        /* 親のマージンで確保されているため0に */
+        box-sizing: border-box;
+        /* パディングを含めた幅計算 */
+    }
+
+    /* レスポンシブ時はabout-spacerを非表示または高さを0に */
+    .about-spacer {
+        display: none;
+        /* 通常フローで表示されるため不要 */
+    }
+
+    .sections-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .btn-container {
+        padding: 0 10px;
+    }
+
+    .btn-container .btn {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        font-size: 16px;
+        word-break: keep-all;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-container .btn {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
 }

@@ -14,6 +14,12 @@ if ($editMode) {
     $formData = session('hometown_register', []);
     // 編集モードフラグをクリア
     session(['form_edit_mode' => false]);
+} else {
+    // セッションデータがある場合（testからの遷移など）も読み込む
+    $sessionData = session('hometown_register', []);
+    if (!empty($sessionData) && isset($sessionData['last_name']) && isset($sessionData['first_name'])) {
+        $formData = $sessionData;
+    }
 }
 
 state([
@@ -350,7 +356,7 @@ $fetchAddress = function () {
                 <!-- 個人情報の取り扱い -->
                 <div class="form-section privacy-policy">
                     <div class="privacy-policy-content">
-                        <p>当町では、ふるさと住民登録に関する個人情報を以下のように取り扱います。</p>
+                        <p>平泉町では、ふるさと住民登録に関する個人情報を以下のように取り扱います。</p>
                         <ol>
                             <li>取得した個人情報は、ふるさと住民制度の運営・管理のためにのみ利用します。</li>
                             <li>法令に基づく場合を除き、本人の同意なく第三者に提供することはありません。</li>

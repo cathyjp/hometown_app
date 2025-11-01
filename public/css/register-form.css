@@ -2,7 +2,7 @@
 
 .privacy-policy {
     background-color: #EEDFDE;
-    padding: 15px;
+    padding: 15px 30px;
     border-radius: 5px;
     margin-bottom: 15px;
     font-size: 14px;
@@ -11,15 +11,11 @@
 /* プライバシーポリシーコンテンツ */
 .privacy-policy-content {
     margin-bottom: 15px;
-    font-size: 14px;
-}
-
-.privacy-policy-content p {
-    margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .privacy-policy-content ol {
-    padding-left: 20px;
+    padding-left: 30px;
 }
 
 .privacy-policy-content li {
@@ -35,4 +31,43 @@
 
 .checkbox-center .checkbox-group {
     text-align: center;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+
+    /* three-columnのレイアウトを解除 */
+    .form-row.three-column {
+        flex-direction: column;
+    }
+
+    .form-label-column {
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .form-input-column {
+        width: 100%;
+    }
+
+    .form-label {
+        width: 100%;
+        display: block;
+        /* アイコンを左側に配置 */
+        padding-left: 40px;
+        padding-right: 0;
+    }
+
+    /* アイコンなしのラベルはパディングなし */
+    .form-label.no-icon {
+        padding-left: 0;
+    }
+
+    .form-label:before {
+        left: 0;
+        right: auto;
+        width: 30px;
+        font-size: 11px;
+    }
 }

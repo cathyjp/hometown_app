@@ -1,3 +1,24 @@
 /* メールアドレス入力フォームの固有スタイル */
 
-/* このファイルは空になりました。すべてのスタイルはcommon.cssに移動されました。 */
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .btn-container {
+        padding: 0 10px;
+    }
+
+    .btn-container .btn {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        font-size: 16px;
+        word-break: keep-all;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-container .btn {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}
