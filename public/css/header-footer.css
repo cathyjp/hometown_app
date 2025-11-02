@@ -1,7 +1,10 @@
 /* ヘッダースタイル */
 .site-header {
-    background-color: rgba(142, 41, 33, 0.9);
-    /* 赤の透過背景 #8E2921（透過度0.9） */
+    /* 右側20%が不透明になっていくグラデーション */
+    background: linear-gradient(to right,
+            rgba(142, 41, 33, 0.9) 0%,
+            rgba(142, 41, 33, 0.9) 80%,
+            rgba(142, 41, 33, 1) 100%);
     position: fixed;
     /* stickyからfixedに変更して常に表示 */
     top: 0;
@@ -100,7 +103,14 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
 
-    /* ヘッダーのレスポンシブ対応 */
+    .site-header {
+        /* 上側10%から上に向けて不透明になっていくグラデーション */
+        background: linear-gradient(to bottom,
+                rgba(142, 41, 33, 1) 0%,
+                rgba(142, 41, 33, 0.9) 20px,
+                rgba(142, 41, 33, 0.9) 100%);
+    }
+
     .header-container {
         justify-content: center;
         /* レスポンシブ時は中央寄せ */

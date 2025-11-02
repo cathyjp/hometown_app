@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{state, title, mount};
+use function Livewire\Volt\{state, title};
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +20,7 @@ state([
 ]);
 
 $submit = function () {
-    // デバッグ・テスト用: メールアドレスが"test"の場合は成功画面を表示してから10秒後にregister-formに遷移
+    // デバッグ・テスト用: メールアドレスが"test"の場合は成功画面を表示
     if ($this->email === 'test') {
         // テストデータをセッションに保存
         Session::put('hometown_register', [
@@ -38,7 +38,26 @@ $submit = function () {
             'birth_month' => '1',
         ]);
 
-        // 成功画面を表示（10秒後にJavaScriptでリダイレクト）
+        // テスト用ユーザーを作成してログイン
+        $testPassword = \Illuminate\Support\Str::random(16);
+        $user = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'ふるさと住民',
+                'password' => Hash::make($testPassword),
+                'email_verified_at' => now(), // メール認証済みにする
+            ],
+        );
+
+        // 既存のユーザーの場合、メール認証済みにする
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+
+        // 自動ログイン
+        Auth::login($user);
+
+        // 成功画面を表示（3秒後にJavaScriptでダイアログを表示してリダイレクト）
         $this->success = true;
         return;
     }
@@ -95,8 +114,8 @@ $submit = function () {
 
             @if ($success)
                 <div class="success-message" data-email="{{ $email }}">
-                    <p>メールアドレスの確認メールを送信しました。</p>
-                    <p>メールに記載されたリンクをクリックして、メールアドレスの確認を完了してください。</p>
+                    <p>メールアドレスの確認メールを送信しました。<br>
+                        メールに記載されたリンクをクリックして、メールアドレスの確認を完了してください。</p>
                     <div class="btn-container">
                         <a href="{{ route('verification.notice') }}" class="btn">確認メールの再送信</a>
                     </div>
@@ -145,8 +164,8 @@ $submit = function () {
                     }
                 });
 
-                // デバッグ・テスト用: success=trueかつemail=testの場合、10秒後にregister-formにリダイレクト
-                function checkTestRedirect() {
+                // デバッグ・テスト用: success=trueかつemail=testの場合、3秒後にダイアログを表示してregister-formにリダイレクト
+                function handleTestRedirect() {
                     const successMessage = document.querySelector('.success-message');
                     if (successMessage) {
                         const emailValue = successMessage.getAttribute('data-email');
@@ -157,10 +176,13 @@ $submit = function () {
                             }
                             successMessage.dataset.timerSet = 'true';
 
-                            // 10秒後にregister-formにリダイレクト
+                            // 3秒後にダイアログを表示
                             setTimeout(function() {
-                                window.location.href = '{{ route('hometown.register.form') }}';
-                            }, 10000);
+                                if (confirm('デバッグ用：申請フォームに遷移します。')) {
+                                    // OKを押したらregister-formにリダイレクト
+                                    window.location.href = '{{ route('hometown.register.form') }}';
+                                }
+                            }, 3000);
                         }
                     }
                 }
@@ -168,13 +190,13 @@ $submit = function () {
                 // Livewireの更新を監視
                 document.addEventListener('livewire:init', function() {
                     Livewire.hook('morph.updated', function() {
-                        checkTestRedirect();
+                        handleTestRedirect();
                     });
                 });
 
                 // DOMContentLoadedでも確認
                 document.addEventListener('DOMContentLoaded', function() {
-                    checkTestRedirect();
+                    handleTestRedirect();
                 });
             </script>
         </div>

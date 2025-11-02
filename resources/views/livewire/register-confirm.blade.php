@@ -2,11 +2,22 @@
 
 use function Livewire\Volt\{state, title};
 use Illuminate\Support\Facades\Session;
+use App\Models\Reasons;
 
 title('申請内容確認｜ふるさと住民登録');
 
 // セッションからフォーム入力データを取得
 $registerData = session('hometown_register', []);
+
+// reasonのIDを取得
+$reasonId = $registerData['reason'] ?? null;
+
+// reasonのIDから該当するreasonのdescriptionを取得
+$reasonDescription = null;
+if ($reasonId) {
+    $reason = Reasons::find($reasonId);
+    $reasonDescription = $reason ? $reason->description : null;
+}
 
 state([
     'last_name' => $registerData['last_name'] ?? '',
@@ -21,6 +32,7 @@ state([
     'gender' => $registerData['gender'] ?? '',
     'birth_year' => $registerData['birth_year'] ?? '',
     'birth_month' => $registerData['birth_month'] ?? '',
+    'reason_description' => $reasonDescription, // 申請理由の説明文
 ]);
 
 // 確認画面から登録完了画面へ
@@ -110,6 +122,15 @@ $back = function () {
                     </div>
                 </div>
             </div>
+
+            @if ($reason_description)
+                <div class="confirm-section">
+                    <div class="confirm-row">
+                        <div class="confirm-label">申請理由</div>
+                        <div class="confirm-value">{{ $reason_description }}</div>
+                    </div>
+                </div>
+            @endif
 
             <div class="btn-container">
                 <button wire:click="back" class="btn btn-secondary">修正する</button>

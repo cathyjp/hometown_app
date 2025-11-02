@@ -18,7 +18,7 @@ class ReasonSeeder extends Seeder
         $reasons = [
             [
                 'name' => '出身者',
-                'description' => '平泉町の出身である',
+                'description' => '平泉町出身である',
                 'is_deleted' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

@@ -64,19 +64,11 @@ state(['reasons' => $reasons]);
             <p>次のいずれかに該当する方で、年齢、性別および国籍は問いません。</p>
             <ul class="eligibility-list">
                 @foreach ($reasons as $reason)
-                    <li>
-                        <label>
-                            <input type="radio" name="reason" value="{{ $reason->id }}"
-                                id="reason_{{ $reason->id }}">
-                            {{ $reason->description }}
-                        </label>
-                    </li>
+                    <li>{{ $reason->description }}</li>
                 @endforeach
             </ul>
             <div class="btn-container">
-                <div class="btn-message" id="btn-message">上記から該当する項目を選択してください</div>
-                <a href="{{ route('hometown.register.email') }}" class="btn btn-large" id="register-btn"
-                    onclick="return checkReasonSelected();">
+                <a href="{{ route('hometown.register.email') }}" class="btn btn-large">
                     ふるさと住民登録申請をする
                 </a>
             </div>
@@ -112,55 +104,7 @@ state(['reasons' => $reasons]);
 
             aboutSpacer.style.height = spacerHeight + 'px';
         }
-
-        // ボタンを初期状態で無効化
-        const registerBtn = document.getElementById('register-btn');
-        if (registerBtn) {
-            registerBtn.classList.add('btn-disabled');
-        }
-
-        // ラジオボタンの選択を監視
-        const radioButtons = document.querySelectorAll('input[name="reason"]');
-        radioButtons.forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                updateButtonState();
-            });
-        });
-
-        // 初期状態を確認
-        updateButtonState();
     });
-
-    // ボタンの状態を更新
-    function updateButtonState() {
-        const registerBtn = document.getElementById('register-btn');
-        const btnMessage = document.getElementById('btn-message');
-        const selectedReason = document.querySelector('input[name="reason"]:checked');
-
-        if (registerBtn && btnMessage) {
-            if (selectedReason) {
-                registerBtn.classList.remove('btn-disabled');
-                registerBtn.style.pointerEvents = 'auto';
-                registerBtn.style.opacity = '1';
-                btnMessage.style.display = 'none';
-            } else {
-                registerBtn.classList.add('btn-disabled');
-                registerBtn.style.pointerEvents = 'none';
-                registerBtn.style.opacity = '0.5';
-                btnMessage.style.display = 'block';
-            }
-        }
-    }
-
-    // ボタンクリック時のチェック
-    function checkReasonSelected() {
-        const selectedReason = document.querySelector('input[name="reason"]:checked');
-        if (!selectedReason) {
-            alert('対象者を選択してください。');
-            return false;
-        }
-        return true;
-    }
 
     // リサイズ時も再計算
     window.addEventListener('resize', function() {

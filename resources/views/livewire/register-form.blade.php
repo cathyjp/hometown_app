@@ -2,9 +2,14 @@
 
 use function Livewire\Volt\{state, title};
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use App\Data\PrefectureData;
+use App\Models\Reasons;
 
 title('ふるさと住民登録申請フォーム｜平泉町');
+
+// reasonsテーブルからデータを取得
+$reasons = Reasons::all();
 
 // 確認画面から戻ってきた場合はセッションデータを取得
 $formData = [];
@@ -22,6 +27,10 @@ if ($editMode) {
     }
 }
 
+// reasonの値を取得
+$reasonValue = $formData['reason'] ?? '';
+$reasonValue = $reasonValue ? (string) $reasonValue : '';
+
 state([
     'last_name' => $formData['last_name'] ?? '',
     'first_name' => $formData['first_name'] ?? '',
@@ -35,8 +44,10 @@ state([
     'gender' => $formData['gender'] ?? '',
     'birth_year' => $formData['birth_year'] ?? '',
     'birth_month' => $formData['birth_month'] ?? '1',
+    'reason' => $reasonValue, // 申請理由
     'privacy_policy' => false, // プライバシーポリシーは常に未チェック状態から
     'errors' => [],
+    'reasons' => $reasons, // reasonsリスト
 ]);
 
 $submit = function () {
@@ -54,6 +65,7 @@ $submit = function () {
             'gender' => $this->gender,
             'birth_year' => $this->birth_year,
             'birth_month' => $this->birth_month,
+            'reason' => $this->reason,
             'privacy_policy' => $this->privacy_policy,
         ],
         [
@@ -68,6 +80,7 @@ $submit = function () {
             'gender' => 'required',
             'birth_year' => 'required|integer|min:1900|max:' . date('Y'),
             'birth_month' => 'required|integer|min:1|max:12',
+            'reason' => 'required',
             'privacy_policy' => 'accepted',
         ],
         [
@@ -92,6 +105,7 @@ $submit = function () {
             'birth_month.integer' => '生月は数字で入力してください',
             'birth_month.min' => '生月は1〜12の間で選択してください',
             'birth_month.max' => '生月は1〜12の間で選択してください',
+            'reason.required' => '申請理由を選択してください',
             'privacy_policy.accepted' => '個人情報の取扱いについて同意してください',
         ],
     );
@@ -116,6 +130,7 @@ $submit = function () {
             'gender' => $this->gender,
             'birth_year' => $this->birth_year,
             'birth_month' => $this->birth_month,
+            'reason' => $this->reason,
         ],
     ]);
 
@@ -349,6 +364,30 @@ $fetchAddress = function () {
                                     @endif
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- 申請理由 -->
+                    <div class="form-row three-column reason-row">
+                        <div class="form-label-column">
+                            <label class="form-label required">申請理由</label>
+                        </div>
+                        <div class="form-input-column">
+                            <ul class="eligibility-list">
+                                @foreach ($reasons as $reasonItem)
+                                    <li>
+                                        <label>
+                                            <input type="radio" wire:model="reason" value="{{ $reasonItem->id }}"
+                                                id="reason_{{ $reasonItem->id }}"
+                                                @if (!empty($reason) && (string) $reason === (string) $reasonItem->id) checked @endif>
+                                            {{ $reasonItem->description }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            @if (isset($errors['reason']))
+                                <span class="error-message">{{ $errors['reason'][0] }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>
