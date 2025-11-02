@@ -159,7 +159,7 @@ $fetchAddress = function () {
 
     <div class="container">
         <div class="breadcrumb">
-            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> &gt;
+            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> ＞
             <span>登録情報入力</span>
         </div>
 

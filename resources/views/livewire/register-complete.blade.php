@@ -12,7 +12,7 @@ title('申請完了｜ふるさと住民登録');
 
     <div class="container">
         <div class="breadcrumb">
-            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> &gt;
+            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> ＞
             <span>申請完了</span>
         </div>
 

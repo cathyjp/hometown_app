@@ -109,8 +109,8 @@ $back = function () {
 
     <div class="container">
         <div class="breadcrumb">
-            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> &gt;
-            <a href="{{ route('hometown.register.form') }}">登録情報入力</a> &gt;
+            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> ＞
+            <a href="{{ route('hometown.register.form') }}">登録情報入力</a> ＞
             <span>申請内容確認</span>
         </div>
 

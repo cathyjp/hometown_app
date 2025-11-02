@@ -101,7 +101,7 @@ $submit = function () {
 
     <div class="container">
         <div class="breadcrumb">
-            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> &gt;
+            <a href="{{ route('hometown.about') }}">ふるさと住民制度</a> ＞
             <span>メールアドレス入力</span>
         </div>
 

@@ -145,35 +145,25 @@ div:has(.about-container) {
 @media (max-width: 768px) {
     .about-container {
         position: relative;
-        /* 絶対配置を解除して通常フローに */
         top: auto;
         left: auto;
         transform: none;
-        /* メインビジュアルの下に配置 */
         margin-top: 20px;
         margin-left: 10px;
         margin-right: 10px;
-        /* 左右マージンを確保 */
         width: calc(100% - 20px);
-        /* 左右マージン分を引いた幅 */
         max-width: calc(100% - 20px);
-        /* max-widthも調整 */
         box-sizing: border-box;
-        /* パディングを含めた幅計算 */
         padding: 20px;
-        /* 左右マージンを確保するためにpaddingを維持 */
     }
 
     .about-container .content-box {
         margin-left: 0;
         margin-right: 0;
-        /* 親のマージンで確保されているため0に */
         box-sizing: border-box;
-        /* パディングを含めた幅計算 */
         background-color: transparent !important;
         box-shadow: none !important;
         border-radius: 0 !important;
-        /* content-boxの間に罫線を引く */
         border: none;
         border-top: 2px solid #8E2921 !important;
         padding-top: 20px;
@@ -186,10 +176,9 @@ div:has(.about-container) {
         padding-top: 0;
     }
 
-    /* レスポンシブ時はabout-spacerを非表示または高さを0に */
+    /* レスポンシブ時はabout-spacerを非表示 */
     .about-spacer {
         display: none;
-        /* 通常フローで表示されるため不要 */
     }
 
     .sections-row {
