@@ -114,7 +114,7 @@ $back = function () {
                     <div class="confirm-value">{{ $gender }}</div>
                 </div>
                 <div class="confirm-row">
-                    <div class="confirm-label">生年月日</div>
+                    <div class="confirm-label">生年月日(年・月)</div>
                     <div class="confirm-value">
                         @if ($birth_year && $birth_month)
                             {{ $birth_year }}年{{ $birth_month }}月

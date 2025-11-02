@@ -109,7 +109,7 @@ $submit = function () {
             <h1 class="page-title">ふるさと住民登録申請フォーム</h1>
 
             <div class="form-description">
-                <p>ご本人確認のため、こちらよりメールアドレスをご入力いただき、送信してください。</p>
+                <p>メールアドレスの認証を行います。メールアドレスをご入力ください。</p>
             </div>
 
             @if ($success)

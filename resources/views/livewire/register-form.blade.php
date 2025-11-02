@@ -334,7 +334,7 @@ $fetchAddress = function () {
 
                     <div class="form-row three-column">
                         <div class="form-label-column">
-                            <label for="birth_year" class="form-label required">生年月日</label>
+                            <label for="birth_year" class="form-label required">生年月日(年・月)</label>
                         </div>
                         <div class="form-input-column">
                             <div class="date-inputs-wrapper">
