@@ -2,7 +2,10 @@
 
 use function Livewire\Volt\{state, title};
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Models\Reasons;
+use App\Models\Residents;
+use App\Models\ResidentReasons;
 
 title('申請内容確認｜ふるさと住民登録');
 
@@ -40,9 +43,50 @@ $submit = function () {
     // セッションからデータを取得
     $registerData = session('hometown_register', []);
 
-    // ここで実際のデータベース登録処理を行う
-    // 例: Residentモデルに保存するなど
-    // 今回はサンプルのため省略
+    // genderを1文字に変換
+    $genderMap = [
+        '男性' => 'M',
+        '女性' => 'F',
+        '選択しない' => 'O',
+    ];
+    $gender = $genderMap[$registerData['gender']] ?? 'O';
+
+    // birth_dateをYYMM形式に変換
+    $birthYear = substr($registerData['birth_year'], -2);
+    $birthMonth = str_pad($registerData['birth_month'], 2, '0', STR_PAD_LEFT);
+    $birthDate = $birthYear . $birthMonth;
+
+    // address_cityとaddress_detailを結合
+    $addressCity = ($registerData['prefecture'] ?? '') . ($registerData['city'] ?? '');
+    $addressDetail = $registerData['address'] ?? '';
+
+    // トランザクション処理でResidentsとResidentReasonsの登録を行う
+    DB::transaction(function () use ($registerData, $gender, $birthDate, $addressCity, $addressDetail) {
+        // Residentsテーブルにデータを登録
+        $resident = Residents::create([
+            'family_name' => $registerData['last_name'],
+            'first_name' => $registerData['first_name'],
+            'family_name_kana' => $registerData['last_name_kana'],
+            'first_name_kana' => $registerData['first_name_kana'],
+            'postal_code' => $registerData['postal_code'],
+            'address_city' => $addressCity,
+            'address_detail' => $addressDetail,
+            'phone' => $registerData['phone'],
+            'gender' => $gender,
+            'birth_date' => $birthDate,
+            'email' => auth()->user()->email,
+            'status' => '1',
+            'is_deleted' => false,
+        ]);
+
+        // ResidentReasonsテーブルにデータを登録
+        if (isset($registerData['reason']) && !empty($registerData['reason'])) {
+            ResidentReasons::create([
+                'resident_id' => $resident->id,
+                'reason_id' => $registerData['reason'],
+            ]);
+        }
+    });
 
     // セッションを保持したまま登録完了画面へリダイレクト
     return redirect()->route('hometown.register.complete');
